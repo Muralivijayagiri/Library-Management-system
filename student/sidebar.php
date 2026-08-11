@@ -1,0 +1,75 @@
+<div class="sidebar">
+    <div class="logo">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <a href="profile.php" class="profile-icon-link" title="View Profile">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #7287FD; cursor: pointer;">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+            <a href="student_dashboard.php" class="student-text-link" title="Student Dashboard" style="
+                text-decoration: none;
+                background: linear-gradient(90deg, #8fa0ff, #5d73ff);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                font-size: 26px;
+                font-weight: 700;
+                letter-spacing: -0.5px;
+                transition: all 0.3s ease;
+            ">Student</a>
+        </div>
+    </div>
+
+    <div class="menu">
+        <a href="my_library.php">📚 My Library</a>
+        <a href="documents.php">📁 Documents</a>
+        <a href="audio.php">🎧 Audio Books</a>
+        <a href="my_borrowings.php">📘 My Borrowings</a>
+        <a href="student_chat.php">💬 Chat with Admin<span class="chat-badge" id="studentChatBadge"></span></a>
+    </div>
+
+    <div class="sidebar-logout">
+        <a href="logout.php" class="logout-btn">
+            🚪 Logout
+        </a>
+    </div>
+</div>
+
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+<script>
+    // Check unread messages for student chat badge
+    function checkStudentUnreadMessages() {
+        fetch('../chat/check_unread.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            const badge = document.getElementById('studentChatBadge');
+            if (badge) {
+                if (data.status === 'success' && data.unread > 0) {
+                    badge.style.display = 'block';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error checking unread messages:', error);
+        });
+    }
+
+    // Check unread messages when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+            checkStudentUnreadMessages();
+            setInterval(checkStudentUnreadMessages, 3000);
+        });
+    } else {
+        checkStudentUnreadMessages();
+        setInterval(checkStudentUnreadMessages, 3000);
+    }
+</script>

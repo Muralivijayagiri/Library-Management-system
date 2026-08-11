@@ -1,0 +1,10 @@
+# Ignore local VS Code settings
+.vscode/
+
+# Ignore user-uploaded assets (keeps your repo size small)
+uploads/
+assets/book_covers/
+pdfjs/uploads/
+
+# Ignore local configuration files containing database passwords (if any)
+config/config.local.php
