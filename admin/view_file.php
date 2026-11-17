@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "../config/config.php";
 
 if (!isset($_SESSION['admin_logged_in'])) {
     http_response_code(403);
@@ -14,8 +15,7 @@ if (!isset($_GET['file']) || empty($_GET['file'])) {
 
 $file = basename($_GET['file']);
 
-$baseDir = $_SERVER['DOCUMENT_ROOT'] . "/Library_Managment/uploads/documents/";
-$filePath = $baseDir . $file;
+$filePath = $DOCS_PATH . $file;
 
 if (!file_exists($filePath)) {
     http_response_code(404);
@@ -26,9 +26,10 @@ if (!file_exists($filePath)) {
 $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 
 // Build public URL for PDF.js
-$fileUrl = "/Library_Managment/uploads/documents/" . $file;
+$fileUrl = $BASE_URL . "uploads/documents/" . rawurlencode($file);
 
 if ($extension === "pdf") {
+    $viewerUrl = $BASE_URL . "pdfjs/web/viewer.html?file=" . urlencode($fileUrl);
     echo "<!DOCTYPE html>
 <html style='width:100%; height:100%; margin:0; padding:0; overflow:hidden;'>
 <head>
@@ -52,7 +53,7 @@ if ($extension === "pdf") {
 <body style='width:100%; height:100%; margin:0; padding:0;'>
     <iframe 
         class='pdf-frame'
-        src='/Library_Managment/pdfjs/web/viewer.html?file=" . urlencode($fileUrl) . "'>
+        src='" . htmlspecialchars($viewerUrl, ENT_QUOTES) . "'>
     </iframe>
 </body>
 </html>";

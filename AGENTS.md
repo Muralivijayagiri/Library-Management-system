@@ -6,7 +6,7 @@ Classic XAMPP PHP/MySQL app (PHP 8.2, `mysqli`). No Composer/npm, build step, te
 `admin/dashboard.php` and `student/dashboard.php` are redirect shims; the real dashboards are `admin/admin_dashboard.php` and `student/student_dashboard.php`.
 
 ## Run and verify
-- Start Apache + MySQL in XAMPP, then open `http://localhost/Library_Managment/`. The folder name/spelling matters: `config/config.php` and the document viewers hardcode `/Library_Managment/`.
+- Start Apache + MySQL in XAMPP, then open `http://localhost/Library_Managment/`. The folder name/spelling matters: `config/config.php` hardcodes `/Library_Managment/`, and the document viewers build URLs from it.
 - Database is `library_management` with user `root` and a blank password, hardcoded in `config/db.php`. There is no `.env` or `config.local.php` loading.
 - Create the schema from `config/database.sql`, then apply `config/migrations/*.sql` manually; there is no migration runner.
 - Keep the placeholder directories under `uploads/` (`book_covers`, `audio`, `audio_images`, `documents`, `student_profiles`); uploaded files are gitignored, but the directories are preserved with `.gitkeep`. Most upload handlers do not `mkdir`.
