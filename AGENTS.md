@@ -7,22 +7,16 @@ Classic XAMPP PHP/MySQL app (PHP 8.2, `mysqli`). No Composer/npm, build step, te
 
 ## Run and verify
 - Start Apache + MySQL in XAMPP, then open `http://localhost/Library_Managment/`. The folder name/spelling matters: `config/config.php` and the document viewers hardcode `/Library_Managment/`.
-- Database is `library_management` with user `root` and a blank password, hardcoded in `config/db.php`. There is no `.env` or `config.local.php` loading. The README's `library_db` name is wrong.
+- Database is `library_management` with user `root` and a blank password, hardcoded in `config/db.php`. There is no `.env` or `config.local.php` loading.
 - Create the schema from `config/database.sql`, then apply `config/migrations/*.sql` manually; there is no migration runner.
-- Create `uploads/{book_covers,audio,audio_images,documents,student_profiles}`. `uploads/` is gitignored, so a fresh clone has none, and most upload handlers do not `mkdir`.
+- Keep the placeholder directories under `uploads/` (`book_covers`, `audio`, `audio_images`, `documents`, `student_profiles`); uploaded files are gitignored, but the directories are preserved with `.gitkeep`. Most upload handlers do not `mkdir`.
 - PHP is not on PATH. Syntax-check changed files with: `& 'C:\xampp\php\php.exe' -l path\to\file.php`
 - No automated test suite; verify by loading the affected pages in a browser and inspecting the DB.
 
-## Schema drift (important)
-`config/database.sql` is stale and not idempotent. Checked-in schema/migrations are missing columns the code uses:
-- `students.branch`, `students.email`, `students.mobile` (`admin/add_student_ajax.php`, profiles)
-- `borrow_records.expected_return` (SQL migration exists)
-- `audio_books.audio_image` (patched by `admin/add_audio_image_column.php`)
-- `chat_messages.seen_status` (used by chat queries; no SQL migration creates it)
+## Schema and migrations
+`config/database.sql` is a fresh-install schema and is not idempotent: its `CREATE TABLE` statements are not guarded with `IF NOT EXISTS`, so import it only once into a new database. Existing databases need the manual SQL patches in `config/migrations/` (notably `add_chat_messages_seen_status.sql`); there is no migration runner. Treat `DESCRIBE` / the live database as the source of truth when debugging an existing install.
 
-The file also ends with `ALTER TABLE books ADD total_copies` even though the table already defines that column, so importing it wholesale can end with a duplicate-column error.
-
-Treat `DESCRIBE` / the live database as the source of truth. These are one-off maintenance scripts, not features: `admin/add_audio_image_column.php`, `admin/fix_document_paths.php`, `chat/create_table.php`, `chat/verify_setup.php`.
+These are one-off maintenance scripts, not features: `admin/add_audio_image_column.php`, `admin/fix_document_paths.php`, `chat/create_table.php`, `chat/verify_setup.php`.
 
 ## Auth conventions
 - Pages call `session_start()` and gate on `$_SESSION['admin_logged_in']` or `$_SESSION['student_logged_in']`. HTML pages redirect to `../login.php`; JSON endpoints return `{"status":"error","message":"Unauthorized"}`.

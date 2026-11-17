@@ -46,13 +46,13 @@ Follow these steps to deploy this repository on your local system using **XAMPP*
    - Launch the **XAMPP Control Panel** and activate both **Apache** and **MySQL**.
    - Navigate to `http://localhost/phpmyadmin` in your web browser.
    - Create a database named `library_management` (this is the name used by `config/db.php`).
-   - Import `config/database.sql`, then apply the `.sql` files in `config/migrations/`. There is no automatic migration runner.
-   - The base schema can lag behind the application code. If a page reports an unknown column, compare its queries with the live table using `DESCRIBE`.
+   - Import `config/database.sql` for a fresh install, and apply the relevant patches in `config/migrations/` for an existing database. There is no automatic migration runner.
+   - If a page reports an unknown column, compare its query with the live table using `DESCRIBE`.
 
 3. **Verify Local Configuration:**
    - Check the primary server files under the `config/` directory.
    - `config/db.php` defaults to the XAMPP user `root` with a blank password; adjust it if your local credentials differ.
-   - Ensure the upload directories exist: `uploads/book_covers`, `uploads/audio`, `uploads/audio_images`, `uploads/documents`, and `uploads/student_profiles`. They are gitignored and may be missing after a fresh clone.
+   - The upload directories (`uploads/book_covers`, `uploads/audio`, `uploads/audio_images`, `uploads/documents`, and `uploads/student_profiles`) are preserved with `.gitkeep` files; uploaded content itself remains gitignored.
 
 4. **Launch Application:**
    - Open your web browser and navigate to:

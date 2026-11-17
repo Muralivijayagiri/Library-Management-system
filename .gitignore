@@ -2,7 +2,10 @@
 .vscode/
 
 # Ignore user-uploaded assets (keeps your repo size small)
-uploads/
+uploads/*
+!uploads/*/
+uploads/*/*
+!uploads/*/.gitkeep
 assets/book_covers/
 pdfjs/uploads/
 
