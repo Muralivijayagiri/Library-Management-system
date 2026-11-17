@@ -16,6 +16,9 @@ CREATE TABLE students (
     name VARCHAR(150) NOT NULL,
     roll_number VARCHAR(50) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    branch VARCHAR(100) DEFAULT NULL,
+    email VARCHAR(150) DEFAULT NULL,
+    mobile VARCHAR(20) DEFAULT NULL,
     profile_image VARCHAR(255) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -37,6 +40,7 @@ CREATE TABLE borrow_records (
     student_roll VARCHAR(50) NOT NULL,
     borrow_date DATE NOT NULL,
     return_date DATE NOT NULL,
+    expected_return DATE DEFAULT NULL,
     actual_return_date DATE DEFAULT NULL,
     status ENUM('borrowed', 'returned') DEFAULT 'borrowed',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -49,6 +53,7 @@ CREATE TABLE audio_books (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     audio_file VARCHAR(255) NOT NULL,
+    audio_image VARCHAR(255) DEFAULT 'default_audio.jpg',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
