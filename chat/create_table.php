@@ -26,6 +26,7 @@ if ($result && $result->num_rows > 0) {
         student_id INT NOT NULL,
         sender ENUM('student','admin') NOT NULL,
         message TEXT NOT NULL,
+        seen_status TINYINT(1) DEFAULT 0,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     

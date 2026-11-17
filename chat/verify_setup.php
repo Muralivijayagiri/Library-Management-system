@@ -43,6 +43,7 @@ if ($result && $result->num_rows > 0) {
     echo "          student_id INT NOT NULL,\n";
     echo "          sender ENUM('student','admin') NOT NULL,\n";
     echo "          message TEXT NOT NULL,\n";
+    echo "          seen_status TINYINT(1) DEFAULT 0,\n";
     echo "          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n";
     echo "      );\n";
 }
