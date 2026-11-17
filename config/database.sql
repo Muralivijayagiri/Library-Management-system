@@ -85,5 +85,3 @@ CREATE TABLE chat_messages (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-ALTER TABLE books ADD total_copies INT NOT NULL DEFAULT 1;
-
