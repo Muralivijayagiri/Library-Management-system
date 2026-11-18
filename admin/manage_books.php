@@ -13,6 +13,7 @@ include "../config/db.php";
 <head>
 <meta charset="UTF-8">
 <title>Manage Books</title>
+<link rel="stylesheet" href="../assets/css/records-table.css">
 
 <style>
     * {
@@ -239,6 +240,30 @@ include "../config/db.php";
         margin-bottom: 30px;
     }
 
+    .returns-filter-form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .returns-filter-form input {
+        flex: 1 1 220px;
+        min-width: 0;
+    }
+
+    .returns-filter-form select {
+        flex: 1 1 140px;
+        min-width: 0;
+        max-width: 200px;
+    }
+
+    .returns-filter-form .filter-submit {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
     .search-filter-bar input,
     .search-filter-bar select {
         padding: 14px 18px;
@@ -273,15 +298,14 @@ include "../config/db.php";
 
     <!-- Search and Filter Bar -->
     <div class="search-filter-bar">
-        <form method="GET" action="" style="display: flex; gap: 16px; width: 100%; align-items: center;">
+        <form method="GET" action="" class="returns-filter-form">
             <input type="text" 
                    id="searchInput"
                    name="search" 
                    placeholder="Search by roll, name, book..." 
-                   value="<?= htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES) ?>"
-                   style="flex: 1;">
+                   value="<?= htmlspecialchars($_GET['search'] ?? '', ENT_QUOTES) ?>">
             
-            <select id="branchFilter" name="branch" style="flex: 0 0 180px;">
+            <select id="branchFilter" name="branch">
                 <option value="all" <?= (isset($_GET['branch']) && $_GET['branch'] === 'all') || !isset($_GET['branch']) ? 'selected' : '' ?>>All Branches</option>
                 <option value="CSE" <?= isset($_GET['branch']) && $_GET['branch'] === 'CSE' ? 'selected' : '' ?>>CSE</option>
                 <option value="ECE" <?= isset($_GET['branch']) && $_GET['branch'] === 'ECE' ? 'selected' : '' ?>>ECE</option>
@@ -292,7 +316,7 @@ include "../config/db.php";
                 <option value="IT" <?= isset($_GET['branch']) && $_GET['branch'] === 'IT' ? 'selected' : '' ?>>IT</option>
             </select>
             
-            <select id="dueFilter" name="due_status" style="flex: 0 0 160px;">
+            <select id="dueFilter" name="due_status">
                 <option value="all" <?= (isset($_GET['due_status']) && $_GET['due_status'] === 'all') || !isset($_GET['due_status']) ? 'selected' : '' ?>>All</option>
                 <option value="overdue" <?= isset($_GET['due_status']) && $_GET['due_status'] === 'overdue' ? 'selected' : '' ?>>Overdue</option>
                 <option value="due_today" <?= isset($_GET['due_status']) && $_GET['due_status'] === 'due_today' ? 'selected' : '' ?>>Due Today</option>
@@ -301,28 +325,31 @@ include "../config/db.php";
                 <option value="normal" <?= isset($_GET['due_status']) && $_GET['due_status'] === 'normal' ? 'selected' : '' ?>>Normal</option>
             </select>
             
-            <select id="returnedFilter" name="returned_status" style="flex: 0 0 150px;">
+            <select id="returnedFilter" name="returned_status">
                 <option value="all" <?= (isset($_GET['returned_status']) && $_GET['returned_status'] === 'all') || !isset($_GET['returned_status']) ? 'selected' : '' ?>>All</option>
                 <option value="returned" <?= isset($_GET['returned_status']) && $_GET['returned_status'] === 'returned' ? 'selected' : '' ?>>Returned</option>
                 <option value="not_returned" <?= isset($_GET['returned_status']) && $_GET['returned_status'] === 'not_returned' ? 'selected' : '' ?>>Not Returned</option>
             </select>
             
-            <button type="submit" class="btn" style="flex: 0 0 100px; background: linear-gradient(90deg, #8fa0ff, #5d73ff); color: white; padding: 14px 18px; border-radius: 12px; font-weight: 600; cursor: pointer;">Search</button>
+            <button type="submit" class="btn filter-submit" style="background: linear-gradient(90deg, #8fa0ff, #5d73ff); color: white; padding: 14px 18px; border-radius: 12px; font-weight: 600; cursor: pointer;">Search</button>
         </form>
     </div>
 
-    <table>
+    <div class="table-wrap">
+    <table class="records-table returns-table">
+        <thead>
         <tr>
-            <th>Student Roll</th>
-            <th>Book Name</th>
-            <th>Category</th>
-            <th class="date-column">Borrow Date</th>
-            <th class="date-column">Expected Return</th>
-            <th class="date-column">Actual Return</th>
-            <th>Due Status</th>
-            <th>SEND REMINDER</th>
-            <th>Action</th>
+            <th class="col-roll">Student Roll</th>
+            <th class="col-book">Book Name</th>
+            <th class="col-category">Category</th>
+            <th class="date-column col-date">Borrow Date</th>
+            <th class="date-column col-date">Expected Return</th>
+            <th class="date-column col-date">Actual Return</th>
+            <th class="col-due">Due Status</th>
+            <th class="col-reminder">Send Reminder</th>
+            <th class="col-action">Action</th>
         </tr>
+        </thead>
 
         <tbody id="returnsTableBody">
         <?php
@@ -507,13 +534,13 @@ include "../config/db.php";
                 }
         ?>
         <tr data-branch="<?= htmlspecialchars($row['student_branch'] ?? '', ENT_QUOTES) ?>">
-            <td><?= htmlspecialchars($row['student_roll'], ENT_QUOTES) ?></td>
-            <td><?= htmlspecialchars($row['title'], ENT_QUOTES) ?></td>
-            <td><?= htmlspecialchars($row['category'], ENT_QUOTES) ?></td>
-            <td class="date-column"><?= htmlspecialchars($row['borrow_date'], ENT_QUOTES) ?></td>
-            <td class="date-column"><?= htmlspecialchars($row['expected_return'], ENT_QUOTES) ?></td>
-            <td class="date-column"><?= $actualReturnDisplay ?></td>
-            <td>
+            <td class="col-roll"><?= htmlspecialchars($row['student_roll'], ENT_QUOTES) ?></td>
+            <td class="col-book"><?= htmlspecialchars($row['title'], ENT_QUOTES) ?></td>
+            <td class="col-category"><?= htmlspecialchars($row['category'], ENT_QUOTES) ?></td>
+            <td class="date-column col-date"><?= htmlspecialchars($row['borrow_date'], ENT_QUOTES) ?></td>
+            <td class="date-column col-date"><?= htmlspecialchars($row['expected_return'], ENT_QUOTES) ?></td>
+            <td class="date-column col-date"><?= $actualReturnDisplay ?></td>
+            <td class="col-due">
                 <?php if ($dueStatus === 'Overdue'): ?>
                     <span class="overdue-badge"><?= htmlspecialchars($dueStatusText, ENT_QUOTES) ?></span>
                 <?php elseif ($dueStatus === 'Due'): ?>
@@ -524,7 +551,7 @@ include "../config/db.php";
                     <span class="normal-badge"><?= htmlspecialchars($dueStatusText, ENT_QUOTES) ?></span>
                 <?php endif; ?>
             </td>
-            <td>
+            <td class="col-reminder">
                 <button class="btn-reminder"
                     onclick="sendReminder('<?php echo $row['student_id']; ?>',
                                           '<?php echo htmlspecialchars($row['title'], ENT_QUOTES); ?>',
@@ -532,7 +559,7 @@ include "../config/db.php";
                     Send Reminder
                 </button>
             </td>
-            <td>
+            <td class="col-action">
                 <?php if ($row['status'] === 'returned') : ?>
                     <button class="btn returned-btn" disabled>Returned</button>
                 <?php else : ?>
@@ -552,6 +579,7 @@ include "../config/db.php";
         <?php endif; ?>
         </tbody>
     </table>
+    </div>
 </div>
 
 <!-- RETURN MODAL -->

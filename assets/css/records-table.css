@@ -1,0 +1,167 @@
+/* Compact record tables - Manage Returns / Manage Students */
+
+/* Scroll fallback only: the table is sized to fit at normal desktop widths. */
+.table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 16px;
+    border: 1px solid rgba(179, 192, 237, 0.2);
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    -webkit-overflow-scrolling: touch;
+}
+
+/* dashboard.css loads after this file, so keep these selectors specific. */
+.table-wrap .records-table {
+    width: 100%;
+    min-width: 900px;
+    table-layout: fixed;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.table-wrap .records-table th,
+.table-wrap .records-table td {
+    padding: 8px 10px;
+    font-size: 13px;
+    line-height: 1.35;
+    vertical-align: middle;
+    border-bottom: 1px solid rgba(179, 192, 237, 0.2);
+}
+
+.table-wrap .records-table th {
+    padding: 9px 10px;
+    font-size: 12px;
+    line-height: 1.25;
+    letter-spacing: 0.3px;
+    white-space: normal;
+}
+
+.table-wrap .records-table td {
+    overflow-wrap: break-word;
+}
+
+.table-wrap .records-table td.date-column,
+.table-wrap .records-table td.col-date,
+.table-wrap .records-table td.col-roll,
+.table-wrap .records-table td.col-mobile,
+.table-wrap .records-table td.col-reminder,
+.table-wrap .records-table td.col-action,
+.table-wrap .records-table td.col-actions,
+.table-wrap .records-table td.col-due {
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* Manage Returns: fixed widths for compact columns, book gets the remainder. */
+.returns-table .col-roll {
+    width: 100px;
+}
+
+.returns-table .col-book {
+    width: auto;
+}
+
+.returns-table .col-category {
+    width: 120px;
+}
+
+.returns-table .col-date {
+    width: 88px;
+}
+
+.returns-table .col-due {
+    width: 96px;
+}
+
+.returns-table .col-reminder {
+    width: 112px;
+}
+
+.returns-table .col-action {
+    width: 88px;
+}
+
+/* Manage Students */
+.students-table .col-roll {
+    width: 115px;
+}
+
+.students-table .col-name {
+    width: auto;
+}
+
+.students-table .col-branch {
+    width: 95px;
+}
+
+.students-table .col-email {
+    width: 260px;
+}
+
+.students-table .col-mobile {
+    width: 120px;
+}
+
+.students-table .col-actions {
+    width: 80px;
+}
+
+/* Compact row actions */
+.table-wrap .records-table .btn,
+.table-wrap .records-table .btn-reminder,
+.table-wrap .records-table .returned-btn {
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.3;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.table-wrap .records-table .btn-reminder {
+    background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(255, 112, 67, 0.3);
+}
+
+.table-wrap .records-table .btn-reminder:hover {
+    background: linear-gradient(135deg, #ff5722 0%, #e64a19 100%);
+}
+
+.table-wrap .records-table .delete-student-btn {
+    padding: 4px 8px;
+    font-size: 16px;
+    line-height: 1;
+}
+
+/* Compact status pills */
+.table-wrap .records-table .overdue-badge,
+.table-wrap .records-table .due-badge,
+.table-wrap .records-table .normal-badge {
+    padding: 3px 7px !important;
+    font-size: 10.5px !important;
+    line-height: 1.4;
+    border-radius: 12px !important;
+    box-shadow: none !important;
+    white-space: nowrap;
+}
+
+/* dashboard.css forces this padding with !important */
+.table-wrap .records-table .actions-cell {
+    padding: 8px 10px !important;
+}
+
+.table-wrap .records-table .no-results {
+    padding: 30px 10px;
+}
+
+/* Avoid the 2px hover shift triggering a horizontal scrollbar. */
+.table-wrap .records-table tbody tr:hover {
+    transform: none;
+}

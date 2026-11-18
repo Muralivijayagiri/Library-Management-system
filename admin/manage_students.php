@@ -15,6 +15,7 @@ include "../config/db.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Students - Admin Dashboard</title>
     <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/records-table.css">
     <style>
         * {
             box-sizing: border-box;
@@ -267,15 +268,16 @@ include "../config/db.php";
             </select>
         </div>
 
-        <table>
+        <div class="table-wrap">
+        <table class="records-table students-table">
             <thead>
                 <tr>
-                    <th>Roll Number</th>
-                    <th>Name</th>
-                    <th>Branch</th>
-                    <th>Email</th>
-                    <th>Mobile</th>
-                    <th>Actions</th>
+                    <th class="col-roll">Roll Number</th>
+                    <th class="col-name">Name</th>
+                    <th class="col-branch">Branch</th>
+                    <th class="col-email">Email</th>
+                    <th class="col-mobile">Mobile</th>
+                    <th class="col-actions">Actions</th>
                 </tr>
             </thead>
             <tbody id="studentsTableBody">
@@ -284,6 +286,7 @@ include "../config/db.php";
                 </tr>
             </tbody>
         </table>
+        </div>
 
     </div>
 
@@ -426,12 +429,12 @@ include "../config/db.php";
 
                 return `
                     <tr class="student-row">
-                        <td onclick="openStudentHistory('${rollNumber}')">${rollNumber}</td>
-                        <td onclick="openStudentHistory('${rollNumber}')">${name}</td>
-                        <td onclick="openStudentHistory('${rollNumber}')">${branch}</td>
-                        <td onclick="openStudentHistory('${rollNumber}')">${email}</td>
-                        <td onclick="openStudentHistory('${rollNumber}')">${mobile}</td>
-                        <td class="actions-cell">
+                        <td class="col-roll" onclick="openStudentHistory('${rollNumber}')">${rollNumber}</td>
+                        <td class="col-name" onclick="openStudentHistory('${rollNumber}')">${name}</td>
+                        <td class="col-branch" onclick="openStudentHistory('${rollNumber}')">${branch}</td>
+                        <td class="col-email" onclick="openStudentHistory('${rollNumber}')">${email}</td>
+                        <td class="col-mobile" onclick="openStudentHistory('${rollNumber}')">${mobile}</td>
+                        <td class="col-actions actions-cell">
                             <button class="delete-student-btn" onclick="event.stopPropagation(); openDeleteStudentModal('${rollNumber}')" title="Delete Student">
                                 🗑️
                             </button>
