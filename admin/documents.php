@@ -14,62 +14,19 @@ include "../config/config.php";
 <head>
 <meta charset="UTF-8">
     <title>Documents</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
     <link rel="stylesheet" href="../assets/css/document_viewer_modal.css">
     <link rel="stylesheet" href="../assets/css/upload-box.css">
     <link rel="stylesheet" href="../assets/css/action-menu.css">
 
     <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(135deg, #f3f6ff 0%, #e8edff 100%);
+    /* Shared layout (.content, .topbar, .grid, .card) comes from dashboard.css.
+       Page-specific rules are scoped to .documents-page so they cannot leak. */
+    body.documents-page {
         display: flex;
-        color: #1a1a2e;
     }
 
-    .content {
-        margin-left: 260px;
-        padding: 30px;
-        width: calc(100% - 260px);
-    }
-
-    .topbar {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-        padding: 20px 30px;
-        border-radius: 16px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(179, 192, 237, 0.2);
-    }
-
-    .topbar h2 {
-        margin: 0;
-        font-size: 28px;
-        font-weight: 700;
-        background: linear-gradient(90deg, #8c9eff, #536dfe);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        letter-spacing: -0.5px;
-    }
-
-    .upload-box {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-        padding: 30px;
-        border-radius: 16px;
-        margin-bottom: 30px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        border: 1px solid rgba(179, 192, 237, 0.2);
-    }
-
-    .upload-box label {
+    .documents-page .upload-box label {
         display: block;
         margin: 20px 0 12px 0;
         font-weight: 600;
@@ -78,7 +35,7 @@ include "../config/config.php";
         font-family: 'Poppins', sans-serif;
     }
 
-    .upload-box input[type="text"] {
+    .documents-page .upload-box input[type="text"] {
         width: 100%;
         padding: 14px 18px;
         border: 2px solid rgba(179, 192, 237, 0.2);
@@ -91,14 +48,14 @@ include "../config/config.php";
         color: #1a1a2e;
     }
 
-    .upload-box input[type="text"]:focus {
+    .documents-page .upload-box input[type="text"]:focus {
         outline: none;
         border-color: #b3c0ed;
         box-shadow: 0 0 0 4px rgba(179, 192, 237, 0.1);
         transform: translateY(-1px);
     }
 
-    .upload-box button {
+    .documents-page .upload-box button {
         background: linear-gradient(90deg, #8c9eff, #536dfe);
         color: #ffffff;
         text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -114,86 +71,31 @@ include "../config/config.php";
         margin-top: 10px;
     }
 
-    .upload-box button:hover {
+    .documents-page .upload-box button:hover {
         background: linear-gradient(90deg, #7c8dfc, #4e60e6);
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(78, 96, 230, 0.5);
     }
 
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-        transition: all 0.25s ease;
-        position: relative;
-    }
-
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-
-    .card h3 {
+    .documents-page .card h3 {
         margin: 0 0 12px 0;
         font-size: 18px;
         font-weight: 600;
         color: #333;
     }
 
-
-    .download-btn {
-        background: #4a6cf7;
-        color: white;
-        padding: 10px 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        display: inline-block;
+    .documents-page .download-btn {
         margin-top: 15px;
-        transition: all 0.25s ease;
     }
 
-    .download-btn:hover {
-        background: #3c59d0;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
-    }
-
-    .view-btn {
-        background: linear-gradient(90deg, #8c9eff, #536dfe);
-        color: #ffffff;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        padding: 10px 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        display: inline-block;
+    .documents-page .view-btn {
         margin-top: 15px;
         margin-right: 10px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(179, 192, 237, 0.3);
-    }
-
-    .view-btn:hover {
-        background: linear-gradient(90deg, #7c8dfc, #4e60e6);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(78, 96, 230, 0.5);
     }
 </style>
 </head>
 
-<body>
+<body class="documents-page">
 
 <?php include "sidebar.php"; ?>
 

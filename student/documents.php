@@ -12,129 +12,46 @@ include "../config/db.php";
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Documents</title>
+<link rel="stylesheet" href="../assets/css/dashboard.css">
 <link rel="stylesheet" href="../assets/css/document_viewer_modal.css">
 
 <style>
-    * {
-        box-sizing: border-box;
-    }
-
-    body {
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: transparent;
+    /* Shared layout (.content, .topbar, .grid, .card) comes from dashboard.css.
+       Page-specific rules are scoped to .documents-page so they cannot leak. */
+    body.documents-page {
         display: flex;
-        color: #333;
     }
 
-    .content {
-        margin-left: 250px;
-        padding: 25px;
-        width: calc(100% - 250px);
-    }
-
-    .topbar {
-        background: #ffffff;
-        padding: 18px 25px;
-        border-radius: 12px;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    }
-
-    .topbar h2 {
-        margin: 0;
-        font-size: 24px;
-        font-weight: 600;
-        color: #4a6cf7;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-        transition: all 0.25s ease;
-        position: relative;
-    }
-
-    .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-    }
-
-    .card h3 {
+    .documents-page .card h3 {
         margin: 0 0 12px 0;
         font-size: 18px;
         font-weight: 600;
         color: #333;
     }
 
-    .card p {
+    .documents-page .card p {
         color: #666;
         font-size: 14px;
         margin: 8px 0;
-    }
-
-    .download-btn {
-        background: #4a6cf7;
-        color: white;
-        padding: 10px 18px;
-        border: none;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        display: inline-block;
-        margin-top: 15px;
-        transition: all 0.25s ease;
-    }
-
-    .download-btn:hover {
-        background: #3c59d0;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(74, 108, 247, 0.3);
-    }
-
-    .view-btn {
-        background: linear-gradient(90deg, #8c9eff, #536dfe);
-        color: #ffffff;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        padding: 10px 18px;
-        border-radius: 10px;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 600;
-        display: inline-block;
-        margin-top: 15px;
-        margin-right: 10px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        border: none;
-        cursor: pointer;
-        box-shadow: 0 4px 12px rgba(179, 192, 237, 0.3);
-    }
-
-    .view-btn:hover {
-        background: linear-gradient(90deg, #7c8dfc, #4e60e6);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(78, 96, 230, 0.5);
-    }
-
-    .card p {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
+
+    .documents-page .download-btn {
+        margin-top: 15px;
+    }
+
+    .documents-page .view-btn {
+        margin-top: 15px;
+        margin-right: 10px;
+    }
 </style>
 </head>
 
-<body>
+<body class="documents-page">
 
 <?php include "sidebar.php"; ?>
 

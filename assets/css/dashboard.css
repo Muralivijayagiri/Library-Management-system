@@ -1,9 +1,15 @@
+/* Import Poppins Font (must precede all rules for the import to be valid) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 /* Modern Dashboard Styling - Shared CSS for Admin and Student Dashboards */
 
 /* Force-apply gradient background */
 html {
   background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 40%, #f3f4ff 100%) !important;
   background-attachment: fixed !important;
+  /* Reserve scrollbar space so short pages (e.g. Documents) do not render
+     wider than pages with enough content to scroll (e.g. My Library). */
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -18,9 +24,6 @@ body {
 .main-content, .content-area, .page-content, .dashboard-content {
   background: transparent !important;
 }
-
-/* Import Poppins Font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* Color Palette */
 :root {
