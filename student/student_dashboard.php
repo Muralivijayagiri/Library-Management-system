@@ -23,11 +23,18 @@ if (!isset($_SESSION['student_logged_in'])) {
 
         <!-- Topbar -->
         <div class="topbar">
+            <h2>Student dashboard</h2>
             <div class="profile">Welcome, <?= htmlspecialchars($_SESSION['student_name'], ENT_QUOTES, 'UTF-8') ?></div>
         </div>
-        <div class="dashboard-content" style="text-align: center; padding: 60px 20px;">
-            <h2 style="font-family: 'Poppins', sans-serif; background: linear-gradient(90deg, #8fa0ff, #5d73ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-weight: 600; font-size: 24px;">Select an option from the menu to begin.</h2>
-        </div>
+        <main class="dashboard-content">
+            <section class="dashboard-intro" aria-labelledby="student-dashboard-title">
+                <p class="dashboard-eyebrow">YOUR STUDENT LIBRARY</p>
+                <h1 id="student-dashboard-title">Make the most of your library</h1>
+                <p>Browse books, open learning resources, and keep track of your borrowings.</p>
+            </section>
+
+
+        </main>
 
     </div>
 
