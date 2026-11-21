@@ -1015,9 +1015,10 @@ tr:hover {
     .sidebar {
         width: 100%;
         height: auto;
+        min-height: 0;
         position: relative;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
+        padding: 16px 0;
+        transform: none;
     }
 
     .content {
@@ -1308,5 +1309,30 @@ tr:hover {
     .dashboard-action-grid {
         grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
         gap: 14px;
+    }
+}
+
+.dashboard-action-card:focus-visible,
+.sidebar .menu a:focus-visible,
+.sidebar .logo a:focus-visible,
+.sidebar-logout .logout-btn:focus-visible {
+    outline: 3px solid #4359da;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-action-card,
+    .sidebar .menu a,
+    .sidebar .logo a,
+    .sidebar-logout .logout-btn {
+        scroll-behavior: auto;
+        transition: none;
+    }
+
+    .dashboard-action-card:hover,
+    .sidebar .menu a:hover,
+    .sidebar .logo a:hover,
+    .sidebar-logout .logout-btn:hover {
+        transform: none;
     }
 }
