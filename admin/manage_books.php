@@ -12,7 +12,7 @@ include "../config/db.php";
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Manage Books</title>
+<title>Manage Returns - Admin Dashboard</title>
 <link rel="stylesheet" href="../assets/css/records-table.css">
 
 <style>
