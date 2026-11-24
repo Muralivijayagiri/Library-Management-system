@@ -47,7 +47,7 @@ $stored_password_hash = $admin['password'];
 // Admin passwords are stored as SHA256 hashes (based on login.php)
 $current_password_hash = hash('sha256', $current_password);
 
-if ($current_password_hash !== $stored_password_hash) {
+if (!hash_equals($stored_password_hash, $current_password_hash)) {
     echo json_encode(["status" => "error", "message" => "Incorrect current password."]);
     exit;
 }

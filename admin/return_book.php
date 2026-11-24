@@ -47,7 +47,7 @@ if (password_verify($admin_password, $stored_password)) {
     $password_valid = true;
 } 
 // Fallback to SHA256 (for existing passwords)
-else if (hash('sha256', $admin_password) === $stored_password) {
+else if (hash_equals($stored_password, hash('sha256', $admin_password))) {
     $password_valid = true;
 }
 

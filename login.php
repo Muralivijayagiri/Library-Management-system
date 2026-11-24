@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($result->num_rows === 1) {
                 $admin = $result->fetch_assoc();
 
-                if (hash('sha256', $password) === $admin['password']) {
+                if (hash_equals($admin['password'], hash('sha256', $password))) {
                     session_regenerate_id(true);
                     $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_username'] = $admin['username'];
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $login_ok = true;
                 } else {
                     // Fallback: compare SHA256 hex (works if password was inserted in SQL with SHA2(...,256))
-                    if (isset($student['password']) && hash('sha256', $password) === $student['password']) {
+                    if (isset($student['password']) && hash_equals($student['password'], hash('sha256', $password))) {
                         $login_ok = true;
                     }
                 }

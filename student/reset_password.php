@@ -53,7 +53,7 @@ if (isset($stored_password_hash) && password_verify($current_password, $stored_p
     // Fallback: compare SHA256 hash (for SHA2 in database)
     if (isset($stored_password_hash)) {
         $current_password_hash = hash('sha256', $current_password);
-        if ($current_password_hash === $stored_password_hash) {
+        if (hash_equals($stored_password_hash, $current_password_hash)) {
             $password_match = true;
         }
     }
