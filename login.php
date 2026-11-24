@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $admin = $result->fetch_assoc();
 
                 if (hash('sha256', $password) === $admin['password']) {
+                    session_regenerate_id(true);
                     $_SESSION['admin_logged_in'] = true;
                     $_SESSION['admin_username'] = $admin['username'];
 
@@ -66,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
 
                 if ($login_ok) {
+                    session_regenerate_id(true);
                     $_SESSION['student_logged_in'] = true;
                     $_SESSION['student_roll'] = $student['roll_number'];
                     $_SESSION['student_name'] = $student['name'];
