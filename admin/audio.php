@@ -13,6 +13,7 @@ include "../config/config.php";
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio Books</title>
     <link rel="stylesheet" href="../assets/css/upload-box.css">
     <link rel="stylesheet" href="../assets/css/action-menu.css">
