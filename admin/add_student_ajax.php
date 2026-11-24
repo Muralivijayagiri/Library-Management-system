@@ -105,9 +105,10 @@ if ($stmt->execute()) {
         unlink($STUDENT_PROFILES_PATH . $profile_image);
     }
     
+    error_log("add_student_ajax: " . $conn->error);
     echo json_encode([
         "status" => "error",
-        "message" => "Database error: " . $conn->error
+        "message" => "A database error occurred."
     ]);
 }
 

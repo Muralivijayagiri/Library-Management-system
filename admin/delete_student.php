@@ -106,9 +106,10 @@ if ($deleteStmt->execute()) {
         "message" => "Student removed successfully."
     ]);
 } else {
+    error_log("delete_student: " . $conn->error);
     echo json_encode([
         "status" => "error",
-        "message" => "Database error: " . $conn->error
+        "message" => "A database error occurred."
     ]);
 }
 

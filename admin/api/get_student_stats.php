@@ -41,9 +41,10 @@ try {
     ]);
 
 } catch (Exception $e) {
+    error_log("get_student_stats: " . $e->getMessage());
     echo json_encode([
         "status" => "error",
-        "message" => "Database error: " . $e->getMessage()
+        "message" => "A database error occurred."
     ]);
 }
 
