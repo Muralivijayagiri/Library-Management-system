@@ -454,17 +454,8 @@ include "../config/db.php";
             $result = $conn->query($query);
         }
         
-        echo "<!-- QUERY EXECUTED -->";
-        
         if ($result && $result->num_rows > 0):
             while ($row = $result->fetch_assoc()):
-                // ===== DEBUG START =====
-                echo "<!-- DEBUG BORROW ID: {$row['borrow_id']} -->";
-                echo "<!-- DEBUG expected_return: [" . $row['expected_return'] . "] -->";
-                echo "<!-- DEBUG actual_return_date: [" . $row['actual_return_date'] . "] -->";
-                echo "<!-- DEBUG row keys: " . implode(', ', array_keys($row)) . " -->";
-                // ===== DEBUG END =====
-                
                 // Determine due status
                 $expected = $row['expected_return'];
                 $actual = $row['actual_return_date'];
@@ -479,13 +470,6 @@ include "../config/db.php";
                 } else {
                     // Parse dates
                     $expectedDate = new DateTime(trim($expected));
-                    
-                    // ===== DEBUG DATE OBJECT =====
-                    echo "<!-- DEBUG expected_date_parsed: [" . $expectedDate->format('Y-m-d') . "] -->";
-                    $todayDate = new DateTime();
-                    $diffDebug = $todayDate->diff($expectedDate)->format('%r%a');
-                    echo "<!-- DEBUG days_diff: {$diffDebug} -->";
-                    // ===== DEBUG END =====
                     
                     // Calculate signed difference in days (expected - today)
                     $todayTimestamp = $todayDate->getTimestamp();
