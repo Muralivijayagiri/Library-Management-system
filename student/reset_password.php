@@ -64,19 +64,9 @@ if (!$password_match) {
     exit;
 }
 
-// Hash the new password
-// Determine which hashing method was used based on stored password format
-// SHA256 hashes are 64 hex characters, bcrypt hashes start with $2y$ or similar
-$new_password_hash = null;
-
-// Check if stored password is SHA256 (64 hex characters) or bcrypt
-if (strlen($stored_password_hash) === 64 && ctype_xdigit($stored_password_hash)) {
-    // Stored password is SHA256, use SHA256 for new password
-    $new_password_hash = hash('sha256', $new_password);
-} else {
-    // Stored password is bcrypt (password_hash), use password_hash for new password
-    $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-}
+// Hash the new password with bcrypt. Login supports both bcrypt and the
+// legacy SHA-256 fallback, so resets should always upgrade to bcrypt.
+$new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
 
 // Update password in database
 $update_stmt = $conn->prepare("UPDATE students SET password = ? WHERE id = ?");
